@@ -7,105 +7,111 @@
  */
 
 
-/*1) Programa una función que cuente el número de caracteres de una cadena de texto,
+
+/* 1) Programa una función que cuente el número de caracteres de una cadena de texto,
 pe. miFuncion("Hola Mundo") devolverá 10. */
-/*
-const numeroCarac = function (cadena = ""){
-    (typeof cadena === "string") 
-    ? console.log(`Numero de caracteres de la cadena: ${cadena.length}`)  
-    : console.error(`Lo que ingresaste no es una cadena de texto.`) 
-}
-numeroCarac("Mi perro se llama Lucas");
-*/
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir una cadena de texto, si es otra cosa mandara el mensaje de error. 
+ */
+const numeroCaracteres = (cadena = "") => (typeof cadena === "string")
+? console.log(`Numero de caracteres de la cadena: ${cadena.length}`)  
+: console.error(`Lo que ingresaste no es una cadena de texto.`); 
+
+// Pruebas de escritorio
+numeroCaracteres('Mi perro se llama Lucas'); // 23
+numeroCaracteres(''); // 0
+numeroCaracteres(true); // Lo que ingresaste no es una cadena de texto.
 
 
 
 
-
-// *******************************************************************
-/*2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, 
-pe. miFuncion("Hola Mundo", 4) devolverá "Hola". */
-/*
-const recortarCadena = function (cadena = "",num = cadena.length){
-    ((typeof cadena === "string") && ((num > 0))) 
+/*2) Programa una función que te devuelva el texto recortado según el número de caracteres indicados, pe. miFuncion("Hola Mundo", 4) devolverá "Hola". */
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir una cadena de texto y el numero de caracteres debe ser positivo, de lo contrario mandara el mensaje de error. 
+ */
+const recortarCadena = (cadena = "",num = cadena.length) => 
+((typeof cadena === "string" && typeof num === "number" ) && (( num > 0) && (num <= cadena.length))) 
     ? console.log(`La cadena recortada es: ${cadena.slice(0,num)}`) 
-    : console.error(`Lo que ingresaste no es una cadena de texto o esta fuera del rango.`)
-}
-recortarCadena("Lucas tiene un amigo llamado elmo");
-*/
+    : console.error(`Datos invalidos, diferentes tipos de dato, cadena vacia o rango no valido.`);
+
+// Pruebas de escritorio
+recortarCadena("Lucas tiene un amigo llamado elmo"); //dado que no se coloco el parametro de num, el programa retorna la cadena original.
+recortarCadena(""); //devuelve el mensaje del console.error
+recortarCadena("Lucas tiene un amigo",5); //Lucas
+recortarCadena("Lucas tiene un amigo","5"); //console.error
+recortarCadena("Lucas tiene un amigo",18); //Lucas tiene un ami
+recortarCadena("Lucas tiene un amigo",22); //rango invalido, console.error
 
 
 
 
-
-// ********************************************************************
 /* 3) Programa una función que dada una String te devuelva un Array de textos separados por cierto caracter,
 pe. miFuncion('hola que tal', ' ') devolverá ['hola', 'que', 'tal']. */
-/*
-const devolverArray = function (cadena = "",separador = " "){
-    let resultado = ((typeof cadena === "string")) 
-    ? cadena.split(separador) 
-    : console.error(`Lo que ingresaste no es una cadena de texto.`)
-    return resultado;
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir una cadena de texto y el separador de caracteres debe ser positivo, de lo contrario mandara el mensaje de error. 
+ */
+const devolverArray = (cadena = "",separador = " ") => {
+    ((typeof cadena === "string" && typeof separador === "string" )) 
+    ? console.log(cadena.split(separador)) 
+    : console.error(`Datos invalidos, lo que ingresaste no es una cadena de texto o el separador no es de tipo cadena.`);
 }
-console.log(devolverArray("Lucas tiene un amigo llamado elmo"," "))
-*/
+// Pruebas de escritorio
+devolverArray("Lucas tiene un amigo llamado elmo");
+/*se toma por defecto que el separador sera un espacio en blanco, retorna cada elemento en forma de arreglo.
+ejemplo: array = [Lucas, tiene, un, amigo, llamado, elmo] */
+devolverArray("Lucas tiene un amigo llamado elmo", 5); //console.error
+devolverArray("nombre, apellido, sexo, edad", ","); //retorna cada elemento en forma de arreglo
+devolverArray(true, ","); //console.error
 
 
 
 
-
-// ********************************************************************
 /* 4) Programa una función que repita un texto X veces, 
 pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo. */
-/*
-const repetirCadena = function (cadena = "",numRepeticiones = 1){
-    let resultado = "";
-    if((typeof cadena === "string") && numRepeticiones > 0){
-        for(let i=0; i<numRepeticiones; i++){
-            resultado += "-" + cadena + "\n";
-        }  
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir una cadena de texto y el numRepeticiones debe ser positivo, de lo contrario mandara el mensaje de error. 
+ */
+const repetirCadena = (cadena = "", numRepeticiones = 1) => {
+    if((typeof cadena === "string") && (typeof numRepeticiones === "number") && (numRepeticiones > 0)){
+        for(let i=0; i<numRepeticiones; i++) console.log(`${i+1}: ${cadena}\n`);
     }
-    else resultado = "Lo que ingresaste no es una cadena de texto o el numero de repeticiones en negativo."
-    
-    return resultado;
+    else console.error(`Datos invalidos, lo que ingresaste no es una cadena, el numero de repeticiones es negativo  o existen diferentes tipos de dato.`);
 }
-console.log(repetirCadena("Mi nombre es Daniel",-4));
-*/
+// Pruebas de escritorio
+repetirCadena("Mi nombre es Daniel",4); //repite 4 veces
+repetirCadena("Mi nombre es Daniel","4"); // console.error
+repetirCadena(345971,4); // console.error
+repetirCadena("345971",4); // repite 4 veces
+repetirCadena("345971",-4); // console.error
 
 
 
 
-
-// ********************************************************************
 /* 5) Programa una función que invierta las palabras de una cadena de texto, 
 pe. miFuncion("Hola Mundo") devolverá "odnuM aloH".*/
-/*
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir una cadena de texto, de lo contrario mandara el mensaje de error. 
+ */
 const invertirCadena = (cadena = "") => {
-    // Version sin metodos de JS
-    // let resultado = "";
-    // if((typeof cadena !== "string") || (!cadena)) {
-    //     return console.error(`Lo que escribiste no es una cadena de texto o esta vacia.`);
-    // }
-    // for(let i=cadena.length-1; i>=0; i--){
-    //     resultado += cadena[i];
-    // }
-    // console.log(resultado);
-    
-
-    // Version con metodos de JS
     ((typeof cadena !== "string") || (!cadena))
     ? console.error(`Lo que escribiste no es una cadena de texto o esta vacia.`)
     : console.log(cadena.split("").reverse().join(""))
 }
-invertirCadena("Hola Mundo");
-invertirCadena("Javascript es diferente que Java");
-*/
+// Pruebas de escritorio
+invertirCadena("Hola Mundo"); //odnuM aloH
+invertirCadena("Javascript es diferente que Java"); //avaJ euq etnerefid se tpircsavaJ
+invertirCadena(""); //console.error
+invertirCadena(true); //console.error
 
 
 
 
-
+console.log("********************************************");
 /* 6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, 
 pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.*/
 
