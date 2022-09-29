@@ -8,6 +8,8 @@
 
 
 
+
+
 /* 1) Programa una función que cuente el número de caracteres de una cadena de texto,
 pe. miFuncion("Hola Mundo") devolverá 10. */
 /**
@@ -22,6 +24,7 @@ const numeroCaracteres = (cadena = "") => (typeof cadena === "string")
 numeroCaracteres('Mi perro se llama Lucas'); // 23
 numeroCaracteres(''); // 0
 numeroCaracteres(true); // Lo que ingresaste no es una cadena de texto.
+
 
 
 
@@ -43,6 +46,7 @@ recortarCadena("Lucas tiene un amigo",5); //Lucas
 recortarCadena("Lucas tiene un amigo","5"); //console.error
 recortarCadena("Lucas tiene un amigo",18); //Lucas tiene un ami
 recortarCadena("Lucas tiene un amigo",22); //rango invalido, console.error
+
 
 
 
@@ -69,6 +73,7 @@ devolverArray(true, ","); //console.error
 
 
 
+
 /* 4) Programa una función que repita un texto X veces, 
 pe. miFuncion('Hola Mundo', 3) devolverá Hola Mundo Hola Mundo Hola Mundo. */
 /**
@@ -87,6 +92,7 @@ repetirCadena("Mi nombre es Daniel","4"); // console.error
 repetirCadena(345971,4); // console.error
 repetirCadena("345971",4); // repite 4 veces
 repetirCadena("345971",-4); // console.error
+
 
 
 
@@ -111,69 +117,55 @@ invertirCadena(true); //console.error
 
 
 
-console.log("********************************************");
-/* 6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, 
-pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.*/
 
-/*
+/* 6) Programa una función para contar el número de veces que se repite una palabra en un texto largo, pe. miFuncion("hola mundo adios mundo", "mundo") devolverá 2.*/
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir cadenas, el texto y la palabra a buscar-contar las repeticiones, de lo contrario mandara el mensaje de error. 
+ */
 const countWords = (cadena = "", word = "") => {
-    if((typeof cadena !== "string") || (!cadena) || (!word)) {
-        return console.error(`Lo que escribiste no es una cadena de texto o hay campos vacios.`);
+    if((typeof cadena !== "string" || typeof word !== "string") || (!cadena) || (!word)) {
+        return console.error(`Datos invalidos, la cadena y-o la palabra a buscar no es de tipo cadena o hay campos vacios.`);
     }
     let i = 0, contador = 0;
     while(i !== -1){
         i = cadena.indexOf(word, i);
-        // console.log(i);
         if(i !== -1){
             i++;
             contador++;
         }
     }
-    return console.log(`La palabra ${word} aparece ${contador} vez(ces) en el texto.`)
+    return console.log(`La palabra "${word}" aparece ${contador} vez(ces) en el texto.`)
 }
-
-countWords("mundo hola mundo, algunas personas en el mundo a menudo me desilucionan (me incluyo en este mundo), pero algunas personas son grandiosas en este mundo, a veces me dan ganas de dejar este mundo","mundo");
-countWords("hola mundo adios mundo", "mundo");
-*/
-
-/*
-    Codigo sin el metodo indexOf
-    if((typeof cadena !== "string") || (!cadena) || (!word)) {
-        return console.error(`Lo que escribiste no es una cadena de texto o hay campos vacios.`);
-    }
-    let cadenaAArray = cadena.split("(").join().split(")").join().split(" ").join().split(",");
-    let contador = 0;
-    cadenaAArray.forEach( (i,indice) => {
-        if(cadenaAArray[indice] === word){
-            contador++;
-        }
-    });
-    console.log(`La palabra ${word} aparece ${contador} vez(ces) en el texto.`)
-*/
-
-
-
+// Pruebas de escritorio
+countWords("mundo hola mundo, algunas personas en el mundo a menudo me desilucionan (me incluyo en este mundo), pero algunas personas son grandiosas en este mundo, a veces me dan ganas de dejar este mundo","mundo"); //devuelve 6 veces
+countWords("hola mundo adios mundo", "mundo");//devuelve 2 veces
+countWords("hola mundo adios mundo", 5); //console.error
+countWords("", ""); //console.error
 
 
 
 
 
 /* 7) Programa una función que valide si una palabra o frase dada, es un palíndromo (que se lee igual en un sentido que en otro), pe. mifuncion("Salas") devolverá true.*/
-/*
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir una cadena, de lo contrario mandara el mensaje de error. 
+ */
 const capicua = (cadena = "") => {
     if((typeof cadena !== "string") || (!cadena)){
         return console.error(`Lo que escribiste no es una cadena de texto o el campo esta vacio.`);
     } 
     cadena = cadena.toLocaleLowerCase();
     let newCadena = cadena.split("").reverse().join("");
-    // console.log(newCadena);
     (newCadena === cadena) ? console.log(true) : console.log(false); 
 }
-capicua("Daniel")
-capicua("Salas")
-*/
-
-
+// Pruebas de escritorio
+capicua("oso"); //true 
+capicua("Daniel"); //false
+capicua("Salas"); //true
+capicua(""); //console.error
+capicua(true); //console.error
 
 
 
@@ -181,102 +173,129 @@ capicua("Salas")
 
 /* 8) Programa una función que elimine cierto patrón de caracteres de un texto dado, 
 pe. miFuncion("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz") devolverá  "1, 2, 3, 4 y 5. */
-/*
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir datos de tipo string, de lo contrario mandara el mensaje de error. 
+ */
 const eliminar = (cadena = "",edelete = "") => {
-    if((typeof cadena !== "string") || (!cadena) || (!edelete)) {
+    if((typeof cadena !== "string" || typeof edelete !== "string" ) || (!cadena) || (!edelete)) {
         return console.error(`Lo que escribiste no es una cadena de texto o hay campos vacios.`);
     }
-    let cadena2 = cadena.split(edelete).join("");    
+    let cadena2 = cadena.split(edelete).join("");
     return console.log(cadena2);
 }
-eliminar("xyz1, xyz2, xyz3, xyz4 y xyz5.", "xy");
-eliminar("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae natus id, quas labore, quos quibusdam in debitis aspernatur corporis facere minus molestiae aliquid consequatur repellat cupiditate tempore. Commodi, debitis? Nam!","o")
-*/
-
+// Pruebas de escritorio
+eliminar("xyz1, xyz2, xyz3, xyz4 y xyz5.", "xy"); // retorna z, z2, z3, z4 y z5.
+eliminar("xyz1, xyz2, xyz3, xyz4 y xyz5.", "xyz");// retorna 1, 2, 3, 4 y 5.
+eliminar("xyz1, xyz2, xyz3, xyz4 y xyz5.", "");// console.error
+eliminar("", "xyz");// console.error
+eliminar(true, "xyz");// console.error
 
 
 
 
 
 /* 9) Programa una función que obtenga un numero aleatorio entre 501 y 600. */
-/*
 const aleatorio = () => console.log(Math.round(Math.random()*100 + 500));
-aleatorio()
-*/
-
+// Pruebas de escritorio
+aleatorio() //algun numero entre 501 y 600
+aleatorio() //algun numero entre 501 y 600
+aleatorio() //algun numero entre 501 y 600
 
 
 
 
 
 /* 10) Programa una función que reciba un número y evalúe si es capicúa o no (que se lee igual en un sentido que en otro), pe. miFuncion(2002) devolverá true. */
-/*
-const numberCapicua = numero => {
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir datos de tipo numerico, de lo contrario mandara el mensaje de error. 
+ */
+const numberCapicua = (numero = undefined) => {
     if((typeof numero !== "number")) return console.error(`El dato no es un numero o el campo esta vacio`);
     numero = numero.toString();
     let newNumber = numero.split("").reverse().join("");
     return console.log(newNumber === numero);
 }
-numberCapicua(212.212);
-numberCapicua(2002);
-*/
+// Pruebas de escritorio
+numberCapicua(212.212); //true
+numberCapicua(2002); //true
+numberCapicua("2002"); //console.error
+numberCapicua(""); //console.error
+numberCapicua(); //console.error
 
 
 
 
 
 /* 11) Programa una función que calcule el factorial de un número (El factorial de un entero positivo n, se define como el producto de todos los números enteros positivos desde 1 hasta n), pe. miFuncion(5) devolverá 120. */
-/*
-const factorial = numero => {
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir datos de tipo numerico y positivos, de lo contrario mandara el mensaje de error. 
+ */
+const factorial = (numero = undefined) => {
     if((typeof numero !== "number") || (numero < 0)) return console.error(`El dato no es un numero o es negativo o el campo esta vacio.`);
-    
     let factorial = 1;
     for(let i = 1; i <= numero; i++){
         factorial = i * factorial;
     }
     return console.log(factorial);
 }
-factorial(5);
-*/
-
+// Pruebas de escritorio
+factorial(5); //120
+factorial(3); //6
+factorial(9); //362,880
+factorial(6); //720
+factorial(-5); //console.error
+factorial("5"); //console.error
 
 
 
 
 
 /* 12) Programa una función que determine si un número es primo (aquel que solo es divisible por sí mismo y 1) o no, pe. miFuncion(7) devolverá true. */
-/*
-const numeroPrimo = (numero) => {
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir 1 dato de tipo numerico y positivo, de lo contrario mandara el mensaje de error. 
+ */
+const numeroPrimo = (numero = undefined) => {
     if((typeof numero !== "number") || (numero < 0) || (numero === 0) || (numero ===1) ) return console.error(`Ingresa datos validos (solo valores numericos, no negativos, no 0 ni 1).`);
     let bandera = false;
     for(let i=2; i < numero; i++){    
-        (numero%i === 0) ? bandera = true : bandera= false;
+        (numero%i === 0) ? bandera = false : bandera = true;
         break; 
     }
-    return (bandera) ? console.log(`El numero ${numero} NO es primo`) : console.log(`El numero ${numero} SI es primo`);
+    return (bandera) ? console.log(`El numero ${numero} SI es primo`): console.log(`El numero ${numero} NO es primo`);
 }
-numeroPrimo(0);
-numeroPrimo(1);
-numeroPrimo(true);
-numeroPrimo(13);
-numeroPrimo(200);
-*/
-
+// Pruebas de escritorio
+numeroPrimo(13); //true
+numeroPrimo(200); //false
+numeroPrimo(39); //true
+numeroPrimo(320); //false
+numeroPrimo(0); //console.error
+numeroPrimo(1); //console.error
+numeroPrimo(true); //console.error
 
 
 
 
 
 /* 13) Programa una función que determine si un número es par o impar, pe. miFuncion(29) devolverá Impar. */
-/*
-const parOimpar = (numero) =>{
+/**
+ * Se debe considerar:
+ * El programa solo podra recibir 1 dato de tipo numerico, de lo contrario mandara el mensaje de error. 
+ */
+const parOimpar = (numero = undefined) => {
     if((typeof numero !== "number")) return console.error(`El dato no es un numero o el campo esta vacio.`);
-    (numero%2 ===0) ? console.log(`El numero ${numero} es par`) : console.log(`El numero ${numero} es Impar`);
+    (numero % 2 === 0) ? console.log(`El numero ${numero} es par.`) : console.log(`El numero ${numero} es Impar.`);
 }
-parOimpar(29);
-parOimpar(6);
-parOimpar(-6);
-*/
+// Pruebas de escritorio
+parOimpar(29); //impar
+parOimpar("29"); //console.error
+parOimpar(6); //par
+parOimpar(""); //console.error
+parOimpar(true); //console.error
+parOimpar(-6); //impar
 
 
 
@@ -284,10 +303,13 @@ parOimpar(-6);
 
 /* 14) Programa una función para convertir grados Celsius a Fahrenheit y viceversa, 
 pe. miFuncion(0,"C") devolverá 32°F. */
-/*
-const clima = (valor="",tipo="") => {
+/**
+ * Se debe considerar:
+ * El programa podra recibir 1 dato de tipo numerico (valor) y 1 dato de tipo cadena (C-F), este ultimo dato puede ser mayuscula o miniscula, de lo contrario mandara el mensaje de error. 
+ */
+const clima = (valor = undefined, tipo = "") => {
     if((typeof valor !== "number")){
-        return console.error(`Solo valores numericos, ingresa correctamente el valor de los grados.`);
+        return console.error(`Solo valores numericos, ingresa correctamente el valor.`);
     }
     if((typeof tipo !== "string")){
         return console.error(`Ingresa C si es Celsius y F si es Fahrenheit`);
@@ -298,18 +320,21 @@ const clima = (valor="",tipo="") => {
     }
     (tipo === "c") ? console.log(`${valor} °C son ${(valor*1.8)+32} °F`) : console.log(`${valor} °F son ${((valor-32)/1.8).toFixed(2)} °C`);
 }
+// Pruebas de escritorio
+clima(0,"C"); // 0 °C son 32 °F
+clima(0,"a"); // console.error, datos validos solo C y F
+clima(132,"c"); // 132 °C son 269.6 °F
+clima("132","c"); // console.error, solo valores numericos, ingresa correctamente el valor
+clima(50,"f"); // 50 °F son 10.00 °C
+clima(132,"f"); // 132 °F son 55.56 °C
+clima(32,"Celsius"); // console.error, dato invalido, solo C o F
+clima(32,"C"); // 32 °C son 89.6 °F
 
-clima(0,"C");
-clima(132,"c");
-clima(50,"f");
-clima(132,"f");
-*/
 
 
 
 
-
-
+console.log("********************************************");
 /* 15) Programa una función para convertir números de base binaria a decimal y viceversa, 
 pe. miFuncion(100,2) 100 devolverá 4 base 10. */
 /*
