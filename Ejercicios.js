@@ -334,14 +334,18 @@ clima(32,"C"); // 32 °C son 89.6 °F
 
 
 
-console.log("********************************************");
 /* 15) Programa una función para convertir números de base binaria a decimal y viceversa, 
 pe. miFuncion(100,2) 100 devolverá 4 base 10. */
-/*
-const conversion = (valor,tipo) => {
+/**
+ * Se debe considerar:
+ * El programa debe recibir 2 datos de tipo numerico (valor) y (base), de lo contrario mandara el mensaje de error.
+ * El campo tipo solo puede aceptar dos valores, 10 decimal y 2 si es binario, de no ser asi, mandara un error.
+ * Si se indica que es base binaria, el valor solo puede contener 1s y 0s, de lo contrario mandara un error.
+ */
+const conversion = (valor = undefined,tipo = undefined) => {
     // validaciones
     if(typeof valor !== "number"){
-        return console.error(`Dato invalido o campo vacio, ingresa el valor a trasnformar.`)
+        return console.error(`Dato invalido o campo vacio, ingresa el valor a transformar.`)
     }
     if(typeof tipo !== "number"){
         return console.error(`Dato invalido o campo vacio, ingresa la base correctamente.`)
@@ -361,7 +365,7 @@ const conversion = (valor,tipo) => {
         }
         // parte logica
         let multi = 1, valorFinal = 0;
-        for(let i=0; i < toDecimal.length; i++){
+        for(let i = 0; i < toDecimal.length; i++){
             if(toDecimal[i] === "1"){
                 valorFinal = valorFinal + multi;
             }
@@ -372,11 +376,10 @@ const conversion = (valor,tipo) => {
 
     // de decimal a binario
     else{
-        // console.log(valor, tipo);
         if((valor === 0) || (valor < 0)){
             return console.error(`No puedes colocar ni ceros ni numeros negativos`);
         }
-        valorVerdadero =  valor;
+        const valorDecimal = valor;
         let modulo = "";
         let resultado = "";
         while(valor >= 2){
@@ -385,25 +388,22 @@ const conversion = (valor,tipo) => {
             valor = Math.floor(valor / 2); 
         }
         resultado += valor;
-        console.log(`${valorVerdadero} decimal = ${resultado.split("").reverse().join("")} binario`);
+        console.log(`${valorDecimal} decimal = ${resultado.split("").reverse().join("")} binario`);
     }
 }
-conversion(100,2);
-conversion(10101,2);
-conversion(1011110,2);
-conversion(1011010101,2);
-conversion(1110010,2);
-conversion(15,10);
-conversion(8,10);
-conversion(16,10);
-conversion(19,10);
-conversion(4,10);
-conversion(114,10);
-conversion(114,3);
-*/
-
-
-
+// Pruebas de escritorio
+conversion(100,2); //100 binario = 4 decimal
+conversion(10101,2); // 10101 binario = 21 decimal
+conversion(1011110,2); // 1011110 binario = 94 decimal
+conversion(1011010101,2); // 1011010101 binario = 725 decimal
+conversion(1110010,2); // 1110010 binario = 114 decimal
+conversion(15,10); // 15 decimal = 1111 binario
+conversion(8,10); // 8 decimal = 1000 binario
+conversion(16,10); // 16 decimal = 10000 binario
+conversion(19,10); // 19 decimal = 10011 binario
+conversion(114,10); // 114 decimal = 1110010 binario
+conversion(114,3); //console.error
+conversion("114",3); // console.error
 
 
 
@@ -411,31 +411,37 @@ conversion(114,3);
 
 /* 16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, 
 pe. miFuncion(1000, 20) devolverá 800.*/
-/*
-const descuento = (montoTotal,montoDescuento) => {
+/**
+ * Se debe considerar:
+ * El programa debe recibir 2 datos de tipo numerico (montoTotal) y (montoDescuento), de lo contrario mandara el     mensaje de error.
+ * El montoTotal debe ser mayor a $0, de lo contrario mandara error.
+ * El montoDescuento debe de encontrarse entre un rango de 0% a 100%, de lo contrario mandara un error.
+ */
+const descuento = (montoTotal = undefined,montoDescuento = undefined) => {
+    // validaciones
     if(typeof montoTotal !== "number"){
-        return console.error(`Dato invalido, agrega un valor numerico al monto Total.`)
+        return console.error(`Dato invalido, agrega un valor numerico al monto Total.`);
     }
     if(typeof montoDescuento !== "number"){
-        return console.error(`Dato invalido, agrega un valor numerico al porcentaje del descuento.`)
+        return console.error(`Dato invalido, agrega un valor numerico al porcentaje del descuento.`);
     }
     if(montoTotal <= 0){
-        return console.error(`El monto total debe ser mayor a 0`)
+        return console.error(`El monto total debe ser mayor a 0`);
     }
     if((montoDescuento < 0) || (montoDescuento > 100)){
-        return console.error(`El monto del descuento debe estar en un rango del 0% al 100%`)
+        return console.error(`El monto del descuento debe estar en un rango del 0% al 100%`);
     }
 
     let descuentoTotal = montoTotal * (100 - montoDescuento) / 100;
-    console.log(`El producto con un costo de $${montoTotal} con un descuento del ${montoDescuento}% da un total de $${descuentoTotal}.`);  
+    return console.log(`El producto con un costo de $${montoTotal} con un descuento del ${montoDescuento}% da un total de $${descuentoTotal.toFixed(2)}`);  
 }
-descuento(1000,40);
-descuento(1573,20);
-descuento(-1573,20); //error
-descuento(1573,110); //error
-*/
-
-
+// Pruebas de escritorio
+descuento(1000,40); // El producto con un costo de $1000 con un descuento del 40% da un total de $600.00
+descuento(1573,20); // El producto con un costo de $1573 con un descuento del 20% da un total de $1258.40
+descuento(1373,13.5); // El producto con un costo de $1373 con un descuento del 13.5% da un total de $1187.64
+descuento(-1573,20); // console.error, monto Totalmayor a 0
+descuento(1573,110); // console.error, monto del descuento en un rango de 0% a 100%
+descuento("1573",80); // console.error, el monto Total no es un valor numerico
 
 
 
@@ -443,8 +449,14 @@ descuento(1573,110); //error
 
 /* 17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, 
 pe. miFuncion(new Date(1984,4,23)) devolverá 38 años (en 2022).*/
-/*
-const calcularAños = (año, mes, dia) => {
+/**
+ * Se debe considerar:
+ * Todos los datos deben de ser de tipo numerico, de lo contrario mandara un error.
+ * El año no debe de ser mayor al año en el que nos encontramos ni menor a 1, de lo contrario mandara un error.
+ * El mes debe de estar en un rango de 1 a 12, de lo contrario, mandara un error.
+ * El dia debe de estar en un rango del 1 al 30, de lo contrario, mandara un error.
+ */
+const calcularAños = (año = undefined, mes = undefined, dia = undefined) => {
     let añoActual = 2022;
     if((typeof año !== "number") || (typeof mes !== "number") || (typeof dia !== "number")){
         return console.error(`Datos invalidos, debes de colocar solamente datos numericos.`)
@@ -458,15 +470,13 @@ const calcularAños = (año, mes, dia) => {
     if((dia < 1) || (dia > 30)){
         return console.error(`El dia no puede ser cero ni negativo y debe encontrarse en un rango de 1 a 30.`)
     }
-    console.log(`Han pasado ${añoActual-año} año(s) desde ${año} a ${añoActual}. `)
+    return console.log(`Han pasado ${añoActual-año} año(s) desde ${año} a ${añoActual}. `)
 }
-
-calcularAños(1984,4,23);
-calcularAños(1980,4,30);
-calcularAños(2021,1,1);
-*/
-
-
+// Pruebas de escritorio
+calcularAños(1984,4,23); // Han pasado 38 año(s) desde 1984 a 2022. 
+calcularAños(1980,4,30); // Han pasado 42 año(s) desde 1980 a 2022. 
+calcularAños(2021,1,1); // Han pasado 1 año(s) desde 2021 a 2022. 
+calcularAños(2021,1,"1"); // console.error, Datos invalidos, debes de colocar solamente datos numericos.
 
 
 
@@ -474,27 +484,32 @@ calcularAños(2021,1,1);
 
 /* 18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, 
 pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5.*/
-/*
-const contar = texto => {
+/**
+ * Se debe considerar:
+ * El unico dato a recibir es de tipo cadena, de lo contrario mandara un error.
+ */
+const contar = (texto = undefined) => {
     if(typeof texto !== "string"){
         return console.error(`Dato ivalido, ingresa una cadena de texto`);
     }
-    cadenaTexto =  texto;
+    if(!texto){
+        return console.error(`Campo vacio, ingresa una cadena de texto`);
+    }
+    const cadenaTexto = texto;
     texto = texto.toLowerCase().split("");
     let contadorV = 0, contadorC = 0;
     texto.forEach(element => {
         if(/[aeiouáéíóú]/.test(element)) contadorV++;
         if(/[bcdfghjklmnñpqrstvwxyz]/.test(element)) contadorC++;
     });
-    console.log(`La cadena: \n"${cadenaTexto}" \n\nContiene: \nNumero de vocales: ${contadorV}\nNumero de consonantes: ${contadorC}`)
+    return console.log(`La cadena: \n"${cadenaTexto}" \n\nContiene: \nNumero de vocales: ${contadorV}\nNumero de consonantes: ${contadorC}`);
 }
-contar("Hola, (Mundo).");
-contar("ñoño");
-contar("Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion.");
-*/
-
-
-
+// Pruebas de escritorio
+contar("Hola, (Mundo)."); // Numero de vocales: 4, Numero de consonantes: 5
+contar("ñoño"); // Numero de vocales: 2, Numero de consonantes: 2
+contar(""); // console.error, campo vacio.
+contar("Programa una función que dada una cadena de texto cuente el número de vocales y consonantes, pe. miFuncion."); // Numero de vocales: 40, Numero de consonantes: 47
+contar(true); // console.error, ingresa una cadena de texto.
 
 
 
@@ -502,22 +517,27 @@ contar("Programa una función que dada una cadena de texto cuente el número de 
 
 /* 19) Programa una función que valide que un texto sea un nombre válido, 
 pe. miFuncion("Jonathan MirCha") devolverá verdadero.*/
-/*
-const validarNombre = (nombre) => {
+/**
+ * Se debe considerar:
+ * El nombre debe de ser de tipo cadena, de lo contrario mandara un error.
+ * El nombre no debe de contener numeros, caracteres especiales, signos.
+ */
+const validarNombre = (nombre = undefined) => {
     if(typeof nombre !== "string" || nombre === ""){
         return console.error(`Dato ivalido o vacio, ingresa una cadena de texto`);
     }
     // 
     let expReg = /^[A-Za-zÑñÁÉÍÓÚáéíóú\s]+$/.test(nombre);
-    (expReg) ? console.log(`${nombre} es un nombre Valido.`) : console.log(`${nombre} NO es un nombre Valido.`);
+    (expReg) ? console.log(`${nombre} es un nombre Valido.`) : console.error(`${nombre} NO es un nombre Valido.`);
 }
-
-validarNombre("Daniel");
-validarNombre("Daniel Gustavo");
-*/
-
-
-
+// Pruebas de escritorio
+validarNombre("Daniel"); // Daniel es un nombre Valido.
+validarNombre(true); // console.error, Dato ivalido o vacio, ingresa una cadena de texto.
+validarNombre("Daniel Gustavo"); // Daniel Gustavo es un nombre Valido.
+validarNombre("Daniel14"); // console.error, nombre no valido
+validarNombre("$aniel*"); // console.error, nombre no valido
+validarNombre(""); // console.error, Dato ivalido o vacio, ingresa una cadena de texto
+validarNombre("Lucas"); // Lucas es un nombre Valido.
 
 
 
@@ -525,29 +545,34 @@ validarNombre("Daniel Gustavo");
 
 /* 20) Programa una función que valide que un texto sea un email válido, 
 pe. miFuncion("jonmircha@gmail.com") devolverá verdadero. */
-/*
-const validarEmail = (correo) => {
+/**
+ * Se debe considerar:
+ * El correo debe de ser de tipo cadena, de lo contrario mandara un error.
+ * El correo debe de contener todos los elementos necesarios para poder considerarse como tal.
+ */
+const validarEmail = (correo = undefined) => {
     if((typeof correo !== "string") || correo === ""){
         return console.error(`Dato invalido o campo vacio, ingresa tu correo electronico.`)
     }
     let expReg =/[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i.test(correo);
-    (expReg) ? console.log(`El correo: ${correo}\n es un correo Valido.`) : console.log(`El ${correo}\n NO es un correo Valido.`);
-
+    (expReg) ? console.log(`El correo: ${correo}\nes un correo Valido.`) : console.error(`El correo: ${correo}\nNO es un correo Valido.`);
 }
-validarEmail("Daniel");
-validarEmail("Daniel Gustavo");
-validarEmail("gustavodelacruz2010@gmail.com");
-validarEmail("ddelacruzb2000@alumno.ipn.mx");
-validarEmail("guas123@gmail.com");
-validarEmail("agus@gmail.com");
-validarEmail("123agus@gmail.com");
-*/
+// Pruebas de escritorio
+validarEmail("Daniel"); //El correo: Daniel NO es un correo Valido.
+validarEmail("Daniel Gustavo"); //El correo: Daniel Gustavo NO es un correo Valido.
+validarEmail("gustavobautista2001@gmail.com"); // El correo: gustavobautista2001@gmail.com es un correo Valido.
+validarEmail("dbcruzb4000@alumno.unam.mx"); // El correo: dbcruzb4000@alumno.unam.mx es un correo Valido.
+validarEmail("guas123@gmail.com"); // El correo: guas123@gmail.com es un correo Valido.
+validarEmail("agus@gmail.com"); // El correo: agus@gmail.com es un correo Valido.
+validarEmail("123agus@gmail.com"); // El correo: 123agus@gmail.com es un correo Valido.
+validarEmail(""); // console.error, Dato invalido o campo vacio, ingresa tu correo electronico.
+validarEmail(true); // console.error, Dato invalido o campo vacio, ingresa tu correo electronico.
 
 
 
 
 
-
+console.log("********************************************");
 /*21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, 
 pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25]. */
 /*
