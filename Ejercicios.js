@@ -572,34 +572,34 @@ validarEmail(true); // console.error, Dato invalido o campo vacio, ingresa tu co
 
 
 
-console.log("********************************************");
 /*21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado, 
 pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25]. */
-/*
-const elevar = (arreglo) => {
+/**
+ * Se debe considerar:
+ * Si el campo no es de tipo arreglo, debera mandar error, asi mismo si es un arreglo pero esta vacio debe mandar error.
+ * Todos los elementos del arreglo deben de ser de tipo numerico, de lo contrario es un error.
+ */
+const elevar = (arreglo = undefined) => {
+    // validando si es un arreglo
     if(arreglo instanceof Array === false) return console.error(`El valor que ingresaste no es un arreglo, debes de ingresar un arreglo.`); 
-
+    
+    // validando si no esta vacio
     if(arreglo.length === 0) return console.warn("El arreglo esta vacio.")
 
-    let contador = 0;
-    arreglo.forEach(element => {
-        if((typeof element === "number") && (/[1234567890]/g.test(element))){
-            contador++;
-        }
-    });
+    // Validando que todos los numeros sean de tipo numerico
+    const allNumbers = arreglo.every((numero) => typeof numero === "number");
+    if(allNumbers === false) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.`);
 
-    if(contador !== arreglo.length) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.\nTu arreglo:\n${arreglo.join(" ")}`);
-
-    let arreglo2 = arreglo.map((valor) => Math.pow(valor,2));
-    console.log(`Tu arreglo es:\n[${arreglo.join(" ")}]\nArreglo elevado al cuadrado:\n[${arreglo2.join(" ")}]`);
+    let arregloElevado = arreglo.map((valor) => Math.pow(valor,2));
+    console.log(`Tu arreglo es:\n[${arreglo.join(" ")}]\nArreglo elevado al cuadrado:\n[${arregloElevado.join(" ")}]`);
 }
-elevar([12,14,16,18,20]);
-elevar([2,4,6,8,10]);
-elevar(["1", "3", 15, 10,"Hola"]);
-elevar([]);
-elevar();
-*/
-
+// Pruebas de escritorio
+elevar([12,14,16,18,20]); // [144 196 256 324 400]
+elevar([2,4,6,8,"10"]); // console.error, arreglo solo debe contener numeros de tipo numerico
+elevar([2,4,6,8,10]); // [4 16 36 64 100]
+elevar(["1", "3", 15, 10,"Hola"]); // console.error, arreglo solo debe contener numeros de tipo numerico
+elevar([]); // console.error, arreglo vacio
+elevar([3,6,9,12,15]); // [9 36 81 144 225]
 
 
 
@@ -607,37 +607,30 @@ elevar();
 
 /*22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, 
 pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60]. */
-/*
-const maxAndmin = (arreglo => {
+/**
+ * Se debe considerar:
+ * Si el campo no es de tipo arreglo, debera mandar error, asi mismo si es un arreglo pero esta vacio debe mandar error.
+ * Todos los elementos del arreglo deben de ser de tipo numerico, de lo contrario es un error.
+ * Los numeros pueden ser de tipo negativos, positivos y decimales.
+ */
+const maxAndmin = (arreglo = undefined) => {
+    // Validando que sea arreglo y no se encuentre vacio
     if(arreglo instanceof Array === false) return console.error(`Debes de ingresar un arreglo`); 
-    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.")
-    let contador = 0;
-    arreglo.forEach(element => {
-        if((typeof element === "number") && (/[1234567890]/g.test(element))){
-            contador++;
-        }
-    });
-    if(contador !== arreglo.length) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.\nTu arreglo:\n[${arreglo.join(" ")}]`);
+    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.");
+    
+    // Validando que todos los numeros sean de tipo numerico
+    const allNumbers = arreglo.every((numero) => typeof numero === "number");
+    if(allNumbers === false) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.`);
 
-    // sin el metodo min, max
-    // let auxMa = arreglo[0], auxMe = arreglo[0];
-    // for(let i=0; i<arreglo.length; i++){
-    //     if(auxMa < arreglo[i+1]) auxMa =  arreglo[i+1];
-    //     if(auxMe > arreglo[i+1]) auxMe = arreglo[i+1];
-    // }
-    // let arreglo2 = [auxMa, auxMe];
-     
-    //con el metodo min max
     let arreglo2 = [Math.max(...arreglo), Math.min(...arreglo)];
     return console.log(`Arreglo original:\n[${arreglo.join(" ")}]\nMaximo y minimo:\n[${arreglo2}]`);
-});
-maxAndmin([2,4,6,8,10]);
-maxAndmin([1,3,20,15,0.5,50]);
-maxAndmin([1,33,10,-15,0.5,-50]);
-maxAndmin([1,"5",10,true,0.5,"hola"]);
-*/
-
-
+};
+// Pruebas de escritorio
+maxAndmin([2,4,6,8,10]); // [10,2]
+maxAndmin([1,3,20,15,0.5,50]); // [50,0.5]
+maxAndmin([2,95,71,105,-4,0,-69, "-200"]); // console.error, todos los datos deben de ser de tipo numerico.
+maxAndmin([1,33,10,-15,0.5,-50]); // [33,-50]
+maxAndmin([1,"5",10,true,0.5,"hola"]); // console.error, todos los datos deben de ser de tipo numerico.
 
 
 
@@ -645,30 +638,19 @@ maxAndmin([1,"5",10,true,0.5,"hola"]);
 
 /* 23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el primero almacena los números pares y en el segundo los impares, 
 pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}. */
-/*
-const objetoArrays = (arreglo) => {
-    if(!arreglo) return console.error("Campo vacio")
-    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.")
+/**
+ * Se debe considerar:
+ * Si el campo no es de tipo arreglo, debera mandar error, asi mismo si es un arreglo pero esta vacio debe mandar error.
+ * Todos los elementos del arreglo deben de ser de tipo numerico, de lo contrario es un error.
+ */
+const objetoArrays = (arreglo = undefined) => {
+    // Validando que sea arreglo y no se encuentre vacio
     if(arreglo instanceof Array === false) return console.error(`Debes de ingresar un arreglo`); 
-    let contador = 0;
-    arreglo.forEach(element => {
-        if((typeof element === "number") && (/[1234567890]/g.test(element))){
-            contador++;
-        }
-    });
-    if(contador !== arreglo.length) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.\nTu arreglo:\n[${arreglo.join(" ")}]`);
+    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.");
 
-    // sin utilizar el metodo filter
-    // let arregloPares = [], arregloImpares = [];
-    // for (let elemento of arreglo) {
-    // if(elemento%2 === 0) arregloPares.push(elemento);   
-    // if(elemento%2 === 1) arregloImpares.push(elemento);   
-    // }
-
-    // let objeto = {
-    //     arregloPares,
-    //     arregloImpares
-    // }
+    // Validando que todos los numeros sean de tipo numerico
+    const allNumbers = arreglo.every((numero) => typeof numero === "number");
+    if(allNumbers === false) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.`);
     
     let objeto = {
         pares: arreglo.filter(valor => valor%2 === 0),
@@ -677,11 +659,11 @@ const objetoArrays = (arreglo) => {
     
     return console.log(objeto);
 }
-objetoArrays([1,2,3,4,5,6,7,8,9,10]);
-objetoArrays([5,69,12,4,75,100,39,42,38]);
-*/
-
-
+// Pruebas de escritorio
+objetoArrays([1,2,3,4,5,6,7,8,9,10]); // retorna el objeto con sus respetivos valores
+objetoArrays([5,69,12,4,75,100,39,42,38]); // retorna el objeto con sus respetivos valores
+objetoArrays([2,95,71,105,"-4",0,-69, "-200"]); // console.error, todos los datos deben de ser de tipo numerico.
+objetoArrays([1,"5",10,true,0.5,"hola"]); // console.error, todos los datos deben de ser de tipo numerico.
 
 
 
@@ -689,21 +671,21 @@ objetoArrays([5,69,12,4,75,100,39,42,38]);
 
 /* 24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá los numeros ordenados en forma ascendente y el segundo de forma descendiente,
 pe. miFuncion([7, 5,7,8,6]) devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }. */
-/*
-const ordenacion = (arreglo) => {
-    //validaciones
-    if(!arreglo) return console.error("Campo vacio")
-    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.")
+/**
+ * Se debe considerar:
+ * Si el campo no es de tipo arreglo, debera mandar error, asi mismo si es un arreglo pero esta vacio debe mandar error.
+ * Todos los elementos del arreglo deben de ser de tipo numerico, de lo contrario es un error.
+ */
+const ordenacion = (arreglo = undefined) => {
+    // Validando que sea arreglo y no se encuentre vacio
     if(arreglo instanceof Array === false) return console.error(`Debes de ingresar un arreglo`); 
-    let contador = 0;
-    arreglo.forEach(element => {
-        if((typeof element === "number") && (/[1234567890]/g.test(element))){
-            contador++;
-        }
-    });
-    if(contador !== arreglo.length) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.\nTu arreglo:\n[${arreglo.join(" ")}]`);
-    
-    //ordenamiento ascendente
+    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.");
+    // Validando que todos los numeros sean de tipo numerico
+    const allNumbers = arreglo.every((numero) => typeof numero === "number");
+    if(allNumbers === false) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.`);
+
+    //ordenamiento ascendente usando metodo burbuja
+    const arregloReal = [...arreglo];
     let aux;
     for(let i = 0; i<arreglo.length; i++){
         for(let j = 0; j<arreglo.length; j++){
@@ -712,26 +694,27 @@ const ordenacion = (arreglo) => {
             arreglo[j] = arreglo[j+1];
             arreglo[j+1] = aux;
         }
-        }   
-    }
-    let ascendente = arreglo;
-    let descendiente = [...arreglo].reverse();
-    
-    let ordenaciones = {
-        ascendente,
-        descendiente
-    }
-    return console.log(ordenaciones);
+    }   
 }
-ordenacion([42,16,91,8]);
-ordenacion([5,69,12,4,75,100,39,42,38]);
-ordenacion([7,5,7,8,6]);
-ordenacion([2,4,6,8,10]);
-ordenacion([1,3,20,15,0.5,50]);
-ordenacion([1,33,10,-15,0.5,-50]);
-*/
+let ascendente = arreglo;
 
+// ordenamiento descendiente copiando y dando un reverse
+// va entre corchetes para que no se pase por referencia, ya que si se pasa por referencia el ascendente se ve afectado
+let descendiente = [...arreglo].reverse();
 
+let ordenaciones = {
+    arregloReal,
+    ascendente,
+    descendiente
+}
+return console.log(ordenaciones);
+}
+// Pruebas de escritorio
+ordenacion([42,16,91,8]); // retorna el objeto con sus respetivos valores
+ordenacion([5,69,12,4,75,100,39,42,38]); // retorna el objeto con sus respetivos valores
+ordenacion([1,33,10,-15,0.5,-50]); // retorna el objeto con sus respetivos valores
+objetoArrays([2,95,71,105,"-4",0,-69, "-200"]); // console.error, todos los datos deben de ser de tipo numerico.
+objetoArrays([1,5,10,true,0.5,3]); // console.error, todos los datos deben de ser de tipo numerico.
 
 
 
@@ -739,13 +722,19 @@ ordenacion([1,33,10,-15,0.5,-50]);
 
 /* 25) Programa una función que dado un arreglo de elementos, elimine los duplicados, 
 pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true]. */
-/*
-const eliminarDuplicados = (arreglo => {
-    if(!arreglo) return console.error("Campo vacio");
-    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.");
+/**
+ * Se debe considerar:
+ * Si el campo no es de tipo arreglo, debera mandar error, asi mismo si es un arreglo pero esta vacio debe mandar error.
+ */
+const eliminarDuplicados = (arreglo = undefined) => {
+    // validaciones
     if(arreglo instanceof Array === false) return console.error(`Debes de ingresar un arreglo`); 
-    let auxV, iteracion;
+    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.");
+
     let arregloOriginal = [...arreglo];
+    
+    /*  // 1era solución
+    let auxV, iteracion;
     for(let i = 0; i<arreglo.length; i++){
         auxV = arreglo[i];
         iteracion = i;
@@ -755,20 +744,26 @@ const eliminarDuplicados = (arreglo => {
             j--;
         }
     }
-    }
+    }  */
+
+    // 2da solución, utilizando Set
+    arreglo = [... new Set(arreglo)];
+
+    // almacenando en un objeto para mostrar
     let objeto = {
         arregloOriginal,
         arreglo
     }
+
     return console.log(objeto);
-});
-eliminarDuplicados(["x", 10, "x", 2, "10", 10, true, true]);
-eliminarDuplicados(["x", "x", "x", 2, "10", true, 10, 2, true, true]);
-eliminarDuplicados(["x", 10, "x", 2, "10", 10, 10, true]);
-*/
-
-
-
+};
+// Pruebas de escritorio
+eliminarDuplicados(["x", 10, "x", 2, "10", 10, true, true]); // retorna un objeto con sus respectivos valores
+eliminarDuplicados(["x", "x", "x", 2, "10", true, 10, 2, true, true]); // retorna un objeto con sus respectivos valores
+eliminarDuplicados(true, false, 14); // console.error, debes de ingresar un arreglo
+eliminarDuplicados(["x", 10, "x", 10, 2, "10", 10, true, false]); // retorna un objeto con sus respectivos valores
+eliminarDuplicados([]); // console.warn, el arreglo esta vacio
+eliminarDuplicados([true, false, 14, "true", 14]); // retorna un objeto con sus respectivos valores
 
 
 
@@ -776,31 +771,32 @@ eliminarDuplicados(["x", 10, "x", 2, "10", 10, 10, true]);
 
 /* 26) Programa una función que dado un arreglo de números obtenga el promedio, 
 pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5.*/
-/*
-const promedio = (arreglo) => {
-    if(!arreglo) return console.error("Campo vacio")
-    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.")
+/**
+ * Se debe considerar:
+ * Si el campo no es de tipo arreglo, debera mandar error, asi mismo si es un arreglo pero esta vacio debe mandar error.
+ * Todos los elementos del arreglo deben de ser de tipo numerico, de lo contrario es un error.
+ */
+const promedio = (arreglo = undefined) => {
+    // validaciones
     if(arreglo instanceof Array === false) return console.error(`Debes de ingresar un arreglo`); 
-    let band = true;
-    arreglo.forEach(valor => {
-        if(!(typeof valor === "number" && valor > 0)){
-            band = false;
-        }
-    });
-
-    if(band){
+    if(arreglo.length === 0) return console.warn("El arreglo esta vacio.");
+    // Validando que todos los numeros sean de tipo numerico
+    const allNumbers = arreglo.every((numero) => typeof numero === "number");
+    
+    if(allNumbers === false) return console.error(`Todo el arreglo debe contener valores de tipo numerico.\nTu arreglo contiene numeros como cadenas o cualquier otro tipo de dato.`);
+    else{
         let resultado = 0;
         arreglo.forEach(valor => resultado += valor);
         return console.log(`El promedio es: ${(resultado/arreglo.length).toFixed(2)}`);
-    }else{
-        return console.error("Todos los elementos deben de ser numeros y mayores a 0.");
     }
     
 }
-promedio([9,8,7,6,5,4,3,2,1,1]);
-promedio([42,16,91,8]);
-promedio([5,69,12,4,75,100,39,42,38]);
-promedio([7,5,7,8,6]);
-promedio([1,3]);
-*/
-
+// Pruebas de escritorio
+promedio([9,8,7,6,5,4,3,2,1,1]); // El promedio es: 4.60
+promedio([42,16,91,8]); // El promedio es: 39.25
+promedio([5,69,12,4,75,100,39,42,38]); // El promedio es: 42.67
+promedio([7,5,7,8,6]); // El promedio es: 6.60
+promedio([1,3]); // El promedio es: 2.00
+promedio([]); // console.warn, el arreglo esta vacio
+promedio([true,10,25,45,7]); // console.error, todo el arreglo debe contener valores de tipo numerico.
+promedio(true,10,25,45,7); // console.error, debes de ingresar un arreglo.
